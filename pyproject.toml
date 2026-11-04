@@ -14,8 +14,28 @@ redline = "redline.cli:main"
 Repository = "https://github.com/mozenjii/redline"
 
 [dependency-groups]
-dev = ["pytest>=8"]
+dev = [
+    "pytest>=8",
+    "ruff>=0.17.3",
+]
 
 [build-system]
 requires = ["uv_build>=0.13.6,<0.14.0"]
 build-backend = "uv_build"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+# A broad set on purpose: bugbear and bandit catch real defects, D enforces a docstring on every
+# public symbol, ANN keeps signatures typed for pyright.
+select = ["E", "W", "F", "I", "B", "UP", "SIM", "RUF", "D", "ANN", "S", "PT", "N", "C4", "RET", "PTH", "ERA"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.per-file-ignores]
+# Test names say what they check; asserts are how pytest works.
+"tests/**" = ["D103", "S101"]

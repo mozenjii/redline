@@ -8,4 +8,4 @@ without a model, a network or a clock.
 from importlib.metadata import version
 
 __version__: str = version("redline")
-"""The installed distribution's version, read from package metadata so it is defined in one place."""
+"""The installed version, read from package metadata so it is defined in one place."""
