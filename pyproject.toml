@@ -15,6 +15,7 @@ Repository = "https://github.com/mozenjii/redline"
 
 [dependency-groups]
 dev = [
+    "pyright>=1.1.414",
     "pytest>=8",
     "ruff>=0.17.3",
 ]
@@ -39,3 +40,10 @@ convention = "google"
 [tool.ruff.lint.per-file-ignores]
 # Test names say what they check; asserts are how pytest works.
 "tests/**" = ["D103", "S101"]
+
+[tool.pyright]
+include = ["src", "tests"]
+pythonVersion = "3.11"
+typeCheckingMode = "strict"
+venvPath = "."
+venv = ".venv"
