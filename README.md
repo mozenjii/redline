@@ -1,10 +1,12 @@
 # redline
 
+[![ci](https://github.com/mozenjii/redline/actions/workflows/ci.yml/badge.svg)](https://github.com/mozenjii/redline/actions/workflows/ci.yml)
+
 A harness that attacks AI assistants with prompt injection, measures how often the attacks work, and keeps score as defenses are added.
 
 > **Scope:** the targets are the deliberately vulnerable test assistants in this repo, and the harness will refuse to run against anything else.
 >
-> **Status:** early. I'm at the design stage and there is no released code yet. The results table below stays empty until a script in this repo produces the numbers.
+> **Status:** early. The toolchain and quality gates are in place; the attack and measurement code is not written yet. The results table below stays empty until a script in this repo produces the numbers.
 
 ## The problem
 
@@ -44,6 +46,19 @@ Assistants that read documents, résumés or web pages can be taken over by inst
 - [ ] Layered defenses and their ablations
 - [ ] Adaptive attacker
 - [ ] Regression suite and write-up
+
+## Development
+
+Needs [uv](https://docs.astral.sh/uv/). It installs the pinned Python for you.
+
+```bash
+uv sync
+uv run --locked python scripts/check.py
+```
+
+That one command runs every gate CI runs, cheapest first: lockfile, format, lint, strict types,
+tests with an 80% branch-coverage floor, and a vulnerability audit of the locked dependencies. Keep
+`--locked`; without it uv silently rewrites a stale lockfile and that gate can't fail.
 
 ## Related projects
 
