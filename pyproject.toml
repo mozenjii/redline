@@ -15,6 +15,7 @@ Repository = "https://github.com/mozenjii/redline"
 
 [dependency-groups]
 dev = [
+    "pip-audit>=2.10.1",
     "pyright>=1.1.414",
     "pytest>=8",
     "pytest-cov>=7.1.0",
@@ -28,7 +29,7 @@ build-backend = "uv_build"
 [tool.ruff]
 line-length = 100
 target-version = "py311"
-src = ["src", "tests"]
+src = ["src", "tests", "scripts"]
 
 [tool.ruff.lint]
 # A broad set on purpose: bugbear and bandit catch real defects, D enforces a docstring on every
@@ -41,9 +42,11 @@ convention = "google"
 [tool.ruff.lint.per-file-ignores]
 # Test names say what they check; asserts are how pytest works.
 "tests/**" = ["D103", "S101"]
+# The check script runs fixed developer tools by name; none of its arguments come from outside.
+"scripts/**" = ["S603", "S607"]
 
 [tool.pyright]
-include = ["src", "tests"]
+include = ["src", "tests", "scripts"]
 pythonVersion = "3.11"
 typeCheckingMode = "strict"
 venvPath = "."
