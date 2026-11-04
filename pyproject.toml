@@ -17,6 +17,7 @@ Repository = "https://github.com/mozenjii/redline"
 dev = [
     "pyright>=1.1.414",
     "pytest>=8",
+    "pytest-cov>=7.1.0",
     "ruff>=0.17.3",
 ]
 
@@ -47,3 +48,18 @@ pythonVersion = "3.11"
 typeCheckingMode = "strict"
 venvPath = "."
 venv = ".venv"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = ["--strict-markers", "--strict-config", "-ra"]
+xfail_strict = true
+
+[tool.coverage.run]
+source = ["redline"]
+branch = true
+
+[tool.coverage.report]
+# The floor applies to everything under src/redline; nothing is excluded to reach it.
+fail_under = 80
+show_missing = true
+skip_covered = true
