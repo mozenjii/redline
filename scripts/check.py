@@ -4,9 +4,9 @@ CI runs this same script, so a green run here and a green run in CI mean the sam
 
     uv run --locked python scripts/check.py
 
-`--locked` matters: plain `uv run` quietly rewrites uv.lock to match pyproject.toml before this script
-starts, so a stale lockfile would never be caught. Pass gate names to run a subset, for example
-`uv run --locked python scripts/check.py lint types`.
+`--locked` matters: plain `uv run` quietly rewrites uv.lock to match pyproject.toml before this
+script starts, so a stale lockfile would never be caught. Pass gate names to run a subset, for
+example `uv run --locked python scripts/check.py lint types`.
 """
 
 import subprocess
