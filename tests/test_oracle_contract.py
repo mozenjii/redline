@@ -1,9 +1,9 @@
 """Differential test: the oracles against expected results written independently from the contract.
 
 `tests/fixtures/oracle_cases.json` was authored from `docs/oracles.md` alone, before the oracles
-existed, by someone who never read them. A failure here is a disagreement to resolve by cause:
-fix the code if it breaks the contract, or fix the contract and then the case if the contract was
-unclear. Never edit a case just to make it agree with the code.
+and the egress policy existed, by someone who never read them. A failure here is a disagreement to
+resolve by cause: fix the code if it breaks the contract, or fix the contract and then the case if
+the contract was unclear. Never edit a case just to make it agree with the code.
 """
 
 import json
@@ -29,6 +29,7 @@ from redline.core.tasks import (
     UtilityCheck,
 )
 from redline.core.trace import JsonValue, ToolCall, Trace
+from redline.models.egress import EgressPolicy
 from redline.oracles import judge_attack, judge_utility
 from redline.oracles.match import argument_text
 
@@ -107,6 +108,11 @@ def _judge_utility_case(case: Case) -> str:
     return "solved" if judge_utility(task, trace).solved else "unsolved"
 
 
+def _judge_egress_case(case: Case) -> str:
+    policy = EgressPolicy.from_entries(case["allow"])
+    return "allowed" if policy.permits(case["url"]) else "denied"
+
+
 def _outcome(judge: Callable[[Case], str], case: Case) -> str:
     try:
         return judge(case)
@@ -131,3 +137,8 @@ def test_attack_oracle_agrees_with_the_contract(case: Case) -> None:
 @pytest.mark.parametrize("case", CASES["utility_cases"], ids=_ids("utility_cases"))
 def test_utility_oracle_agrees_with_the_contract(case: Case) -> None:
     assert _outcome(_judge_utility_case, case) == case["expected"], case["why"]
+
+
+@pytest.mark.parametrize("case", CASES["egress_cases"], ids=_ids("egress_cases"))
+def test_egress_policy_agrees_with_the_contract(case: Case) -> None:
+    assert _outcome(_judge_egress_case, case) == case["expected"], case["why"]
