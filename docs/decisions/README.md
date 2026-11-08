@@ -11,3 +11,4 @@ A superseded record stays, marked superseded, with a link to the one that replac
 | [0004](0004-paired-trials.md) | Measure usefulness on the same tasks, with and without an attack | accepted |
 | [0005](0005-record-replay-cassettes.md) | Record every model call once and replay it everywhere else | accepted |
 | [0006](0006-seeded-canaries.md) | Derive each trial's canary from a run seed, so replays rebuild it | accepted |
+| [0007](0007-stand-in-model.md) | Build the pipeline against a scripted stand-in until a model is attached; never report its runs | accepted |
