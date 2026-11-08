@@ -84,7 +84,7 @@ class Cassette:
         path.parent.mkdir(parents=True, exist_ok=True)
         text = json.dumps(self.to_json(), indent=2, ensure_ascii=False) + "\n"
         temporary = path.with_name(path.name + ".tmp")
-        temporary.write_text(text, encoding="utf-8")
+        temporary.write_bytes(text.encode("utf-8"))
         temporary.replace(path)
 
     @classmethod
