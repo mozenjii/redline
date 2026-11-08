@@ -6,7 +6,7 @@ A harness that attacks AI assistants with prompt injection, measures how often t
 
 > **Scope:** the targets are the deliberately vulnerable test assistants in this repo, or an endpoint of your own that you explicitly allow. The harness refuses any other host.
 >
-> **Status:** early. The toolchain, quality gates and the mechanical success checks are in place; no attack has been run against a model yet. The results table below stays empty until a script in this repo produces the numbers.
+> **Status:** early. The success checks, fake tools, recordings and the first test assistant work end to end, but only against a scripted stand-in model; no real model is attached yet. The results table below stays empty until a script in this repo produces the numbers.
 
 ## The problem
 
@@ -44,10 +44,23 @@ Assistants that read documents, résumés or web pages can be taken over by inst
 
 - [x] Toolchain, quality gates and CI
 - [x] Mechanical success checks, with independently written expected results
-- [ ] Test assistants and attack corpus format
+- [x] First test assistant, fake tools and record/replay, run end to end on a stand-in model
+- [ ] A real model attached, the second test assistant and the attack corpus
 - [ ] Layered defenses and their ablations
 - [ ] Adaptive attacker
 - [ ] Regression suite and write-up
+
+## Try it
+
+```bash
+uv sync
+uv run --locked redline demo
+```
+
+This replays one exfiltration attack on DocQA from a committed recording: the attacked document tells the
+assistant to email its instructions out, the assistant does, and the oracle finds the trial's secret in the
+email. A clean run of the same question sits beside it as a control. The model in that recording is a
+scripted stand-in, so the demo shows the pipeline working, not how any real model behaves.
 
 ## Documentation
 

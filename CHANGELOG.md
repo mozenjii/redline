@@ -20,3 +20,10 @@ All notable changes are listed here. The format follows
 - Deterministic oracles for all four attack goals and for user-task checks, with the contract in
   `docs/oracles.md` and 162 expected results written from that contract alone.
 - An egress allowlist that refuses any host not listed, checked before a connection exists.
+- Fake `read_file`, `send_email`, `http_get` and `shortlist` tools that record every request and
+  never touch the network or the file system.
+- Record-once, replay-everywhere recordings of model calls; replay fails loudly on a missing entry and
+  refuses an entry whose key does not match its request.
+- DocQA, the first test assistant, and a scripted stand-in model to run it against until a real model
+  is attached.
+- `redline demo`: one exfiltration attack end to end, replayed from a committed recording.

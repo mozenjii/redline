@@ -129,13 +129,18 @@ and a small injection classifier whose false-positive rate on benign documents i
 
 ## Models and compute
 
-Development runs on a laptop with no GPU, so the targets are small quantised models served locally by
-Ollama, at a few tokens per second. Results come from at least two model families, because injection
-results are model-specific. The candidates are Qwen3 and Llama 3.2 at a few billion parameters; neither is
-confirmed until it has been pulled and smoke-tested.
+Development runs on a laptop with no GPU and little free memory, which rules out running models
+locally there. Which model is attached is still open; the likely route is a free tier of a hosted API that
+speaks the OpenAI chat format, reached through the egress allowlist. Results come from at least two model
+families, because injection results are model-specific.
 
-Small models are easier to hijack than large hosted ones. The write-up says so, and does not present a
-small-model result as a statement about frontier models.
+Until a model is attached, the pipeline runs against a scripted stand-in
+([decision 0007](decisions/0007-stand-in-model.md)). Its runs prove the plumbing and are never reported as
+measurements.
+
+Every model call is recorded once ([decision 0005](decisions/0005-record-replay-cassettes.md)), so the cost
+of a model is paid when a run is recorded, not every time the tests or the explorer replay it. Whatever
+model is used, the write-up names it and does not generalise a result to models it did not test.
 
 ## Deployment
 
@@ -163,7 +168,8 @@ Hosting is chosen when the explorer is built, and recorded as a decision then.
 |---|---|
 | Toolchain, quality gates, CI | Built |
 | Core types, oracles, egress allowlist | Built; contract in [oracles.md](oracles.md) |
-| Model layer, cassettes, first test assistant | Not started |
+| Fake tools, recordings, stand-in model, DocQA, `redline demo` | Built |
+| A real model attached | Not started |
 | Attack factory, second assistant, baseline measurement | Not started |
 | Results explorer | Not started |
 | Defenses | Not started |
