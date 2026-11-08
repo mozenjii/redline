@@ -6,7 +6,7 @@ A harness that attacks AI assistants with prompt injection, measures how often t
 
 > **Scope:** the targets are the deliberately vulnerable test assistants in this repo, or an endpoint of your own that you explicitly allow. The harness refuses any other host.
 >
-> **Status:** early. The toolchain and quality gates are in place; the attack and measurement code is not written yet. The results table below stays empty until a script in this repo produces the numbers.
+> **Status:** early. The toolchain, quality gates and the mechanical success checks are in place; no attack has been run against a model yet. The results table below stays empty until a script in this repo produces the numbers.
 
 ## The problem
 
@@ -43,8 +43,8 @@ Assistants that read documents, résumés or web pages can be taken over by inst
 ## Roadmap
 
 - [x] Toolchain, quality gates and CI
+- [x] Mechanical success checks, with independently written expected results
 - [ ] Test assistants and attack corpus format
-- [ ] Mechanical success checks
 - [ ] Layered defenses and their ablations
 - [ ] Adaptive attacker
 - [ ] Regression suite and write-up
@@ -52,6 +52,7 @@ Assistants that read documents, résumés or web pages can be taken over by inst
 ## Documentation
 
 - [Design](docs/design.md): what redline produces, how a trial is measured, the architecture and what is built so far
+- [Oracles](docs/oracles.md): exactly what counts as a leak, a tool misuse, a hijacked answer or a moved score
 - [Threat model](docs/threat-model.md): the attacker redline measures, and the risks of running redline itself
 - [Decision records](docs/decisions/): the choices that would be expensive to reverse, and the alternatives they beat
 - [Changelog](CHANGELOG.md), [contributing](CONTRIBUTING.md), [security policy](SECURITY.md)

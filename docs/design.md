@@ -49,7 +49,8 @@ Every injection task has a deterministic success check over the trial's trace:
 
 A judge model can be fooled by the same text that fooled the assistant, so it is not used to grade attacks.
 Each trial gets a fresh random canary, so a model that memorised one cannot fake a leak and runs cannot
-contaminate each other. See [decision 0002](decisions/0002-deterministic-oracles.md).
+contaminate each other. See [decision 0002](decisions/0002-deterministic-oracles.md), and
+[oracles.md](oracles.md) for the exact rules.
 
 ### Keeping the numbers honest
 
@@ -161,7 +162,7 @@ Hosting is chosen when the explorer is built, and recorded as a decision then.
 | Part | State |
 |---|---|
 | Toolchain, quality gates, CI | Built |
-| Core types and oracles | Not started |
+| Core types, oracles, egress allowlist | Built; contract in [oracles.md](oracles.md) |
 | Model layer, cassettes, first test assistant | Not started |
 | Attack factory, second assistant, baseline measurement | Not started |
 | Results explorer | Not started |
