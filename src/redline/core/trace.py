@@ -35,6 +35,15 @@ def freeze_object(value: Mapping[str, JsonValue]) -> Mapping[str, JsonValue]:
     return MappingProxyType({key: freeze_json(item) for key, item in value.items()})
 
 
+def thaw_json(value: JsonValue) -> JsonValue:
+    """Return a plain copy of a frozen JSON value, with dicts and lists, ready for `json.dumps`."""
+    if value is None or isinstance(value, str | bool | int | float):
+        return value
+    if isinstance(value, Mapping):
+        return {key: thaw_json(item) for key, item in value.items()}
+    return [thaw_json(item) for item in value]
+
+
 @dataclass(frozen=True, slots=True)
 class ToolCall:
     """One tool call the assistant made.
